@@ -1,5 +1,11 @@
 # MoteurPhysiqueServeur
 
+
+### Dépendences ###
+
+* Ce projet utilise la SFML 2.4.1
+* Veuillez télécharger la bibliothèque : http://www.sfml-dev.org/download/sfml/2.4.1/index-fr.php
+
 ### Config ###
 
 * Créer un fichier VAR à la racine

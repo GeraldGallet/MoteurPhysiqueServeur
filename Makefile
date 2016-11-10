@@ -5,7 +5,7 @@ all: main.o
 	g++ bin/main.o -o bin/server -L$(SFML_PATH)/lib -lsfml-window -lsfml-system -lsfml-network
 
 main.o :
-	mkdir bin
+	mkdir -p bin
 	g++ -c main.cpp -o bin/main.o -I$(SFML_PATH)/include
 
 clean :

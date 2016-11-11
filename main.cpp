@@ -1,27 +1,23 @@
 #include <iostream>
-#include <SFML/Network.hpp>
 
-int main(int argc, char const *argv[]) {
-  sf::TcpListener listener;
+#include <websocketpp/config/asio_no_tls.hpp>
+#include <websocketpp/server.hpp>
 
-  // lie l'écouteur à un port
-  if (listener.listen(1234) != sf::Socket::Done)
-  {
-    // erreur...
-  }
+typedef websocketpp::server<websocketpp::config::asio> server;
 
-  // accepte une nouvelle connexion
-  sf::TcpSocket client;
-  if (listener.accept(client) != sf::Socket::Done)
-  {
-    // erreur...
-  }
-  else
-  {
-    std::cout << "Connection établie" << std::endl;
-  }
-  /* code */
-
-  listener.close();
-  return 0;
+void on_message(websocketpp::connection_hdl hdl, server::message_ptr msg) {
+        std::cout << msg->get_payload() << std::endl;
 }
+
+int main() {
+    server print_server;
+
+    print_server.set_message_handler(&on_message);
+
+    print_server.init_asio();
+    print_server.listen(9002);
+    print_server.start_accept();
+
+    print_server.run();
+}
+

@@ -2,15 +2,13 @@
 include VAR
 
 all: main.o
-	g++ bin/main.o -o bin/server -L$(SFML_PATH)/lib -lsfml-window -lsfml-system -lsfml-network
-
-main.o :
+	g++ bin/main.o -o bin/server -lboost_system
+main.o:
 	mkdir -p bin
-	g++ -c main.cpp -o bin/main.o -I$(SFML_PATH)/include
+	g++ -c main.cpp -o bin/main.o -I $(WEBSOCKETPP_PATH)/
 
-clean :
+clean:
 	rm -rf bin
 
 run :
-	export LD_LIBRARY_PATH=$(SFML_PATH)/lib
-	./server
+	./bin/server

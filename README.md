@@ -3,7 +3,7 @@
 
 ### Dépendences ###
 
-* Ce projet utilise la Websocketpp et Boost
+* Ce projet utilise Websocketpp et Boost
 * Veuillez télécharger Websocketpp : https://github.com/zaphoyd/websocketpp
 * Veuillez télécharger Boost via votre package controller (i.e pour Ubunutu la paquet : libboost-all-dev)
 

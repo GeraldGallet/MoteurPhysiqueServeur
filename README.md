@@ -3,14 +3,14 @@
 
 ### Dépendences ###
 
-* Ce projet utilise la SFML 2.4.1
-* Veuillez télécharger la bibliothèque : http://www.sfml-dev.org/download/sfml/2.4.1/index-fr.php
+* Ce projet utilise la Websocketpp et Boost
+* Veuillez télécharger Websocketpp : https://github.com/zaphoyd/websocketpp
+* Veuillez télécharger Boost via votre package controller (i.e pour Ubunutu la paquet : libboost-all-dev)
 
 ### Config ###
 
 * Créer un fichier VAR à la racine
-* Ajouter cette ligne : SFML_PATH = \<Your/Path/To/SFML\>/SFML-2.4.1
-
+* Ajouter cette ligne : WEBSOCKETPP_PATH = \<Your/Path/To/Websocketpp\>
 ### Makefile ###
 
 * make : Compile le projet

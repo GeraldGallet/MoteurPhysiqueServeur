@@ -2,6 +2,10 @@
 
 #include <websocketpp/server.hpp>
 
+#include "PhysicEngine/Object.h"
+#include "PhysicEngine/Force.h"
+#include "PhysicEngine/PhysicEngine.h"
+
 #include <iostream>
 #include <set>
 #include <unistd.h>
@@ -160,20 +164,23 @@ private:
 };
 
 int main() {
-    try {
-    broadcast_server server_instance;
+  Object plouf;
+	Force plaf;
+	PhysicEngine myEngine;
+  try {
+  broadcast_server server_instance;
 
-    // Start a thread to run the processing loop
-    thread t(bind(&broadcast_server::process_messages,&server_instance));
-    thread t_2(bind(&broadcast_server::process_engine,&server_instance));
+  // Start a thread to run the processing loop
+  thread t(bind(&broadcast_server::process_messages,&server_instance));
+  thread t_2(bind(&broadcast_server::process_engine,&server_instance));
 
-    // Run the asio loop with the main thread
-    server_instance.run(9002);
+  // Run the asio loop with the main thread
+  server_instance.run(9002);
 
-    t.join();
-    t_2.join();
+  t.join();
+  t_2.join();
 
-    } catch (websocketpp::exception const & e) {
-        std::cout << e.what() << std::endl;
-    }
+  } catch (websocketpp::exception const & e) {
+      std::cout << e.what() << std::endl;
+  }
 }

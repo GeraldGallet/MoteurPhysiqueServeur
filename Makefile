@@ -1,14 +1,23 @@
-
 include VAR
 
-all: main.o
-	g++ -Wall bin/main.o -o bin/server -lboost_system -lboost_timer -lboost_chrono -lboost_thread -lpthread
-main.o:
-	mkdir -p bin
-	g++ -Wall -c main.cpp -o bin/main.o -I $(WEBSOCKETPP_PATH)/ -std=c++11
+CXX = g++
+CXXFLAGS = -std=c++11 -W -Wall -v -I $(WEBSOCKETPP_PATH)/ -I $(PHYSICENGINE_PATH)
+LDFLAGS = -lboost_system -lboost_timer -lboost_chrono -lboost_thread -lpthread -L$(PHYSICENGINE_PATH)/bin/lib -lphysicengine
+EXEC = server
+SRC= main.cpp
+OBJ= $(SRC:.cpp=.o)
+
+
+all: $(EXEC)
+
+server: $(OBJ)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+%.o : %.cpp
+		$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 clean:
-	rm -rf bin
+	rm -f $(EXEC) *.o
 
 run :
-	./bin/server
+	./$(EXEC)

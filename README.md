@@ -11,6 +11,8 @@
 
 * Créer un fichier VAR à la racine
 * Ajouter cette ligne : WEBSOCKETPP_PATH = \<Your/Path/To/Websocketpp\>
+* Ajouter cette ligne : PHYSICENGINE_PATH = \<Your/Path/To/MoteurPhysique\>
+
 ### Makefile ###
 
 * make : Compile le projet

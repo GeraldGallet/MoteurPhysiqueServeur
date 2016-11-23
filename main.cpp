@@ -2,9 +2,7 @@
 
 #include <websocketpp/server.hpp>
 
-#include "PhysicEngine/Object.h"
-#include "PhysicEngine/Force.h"
-#include "PhysicEngine/PhysicEngine.h"
+#include "PhysicEngine/PhysicEngine.hpp"
 
 #include <iostream>
 #include <set>
@@ -164,9 +162,6 @@ private:
 };
 
 int main() {
-  Object plouf;
-	Force plaf;
-	PhysicEngine myEngine;
   try {
   broadcast_server server_instance;
 

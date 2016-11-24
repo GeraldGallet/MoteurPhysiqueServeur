@@ -3,6 +3,7 @@
 #include <websocketpp/server.hpp>
 
 #include "PhysicEngine/PhysicEngine.hpp"
+#include "PhysicEngine/Sphere.hpp"
 
 #include <iostream>
 #include <set>
@@ -133,19 +134,13 @@ public:
         }
     }
 
-    void process_engine() {
-      float x = 0;
-      float step = +0.01;
+    void process_engine(PhysicEngine* engine) {
       while (1)
       {
         for (auto it : m_connections) {
-            m_server.send(it, "[{\"name\":\"Object_001\",\"position\":["+std::to_string(x)+",0,0]}]", websocketpp::frame::opcode::text);
+            m_server.send(it, engine->getObjectsAsJSON(), websocketpp::frame::opcode::text);
+            usleep(100000);
         }
-        usleep(50000);
-        if (x >= 1 || x <= -1) {
-          step *= -1;
-        }
-        x+=step;
       }
     }
 
@@ -163,17 +158,21 @@ private:
 
 int main() {
   try {
-  broadcast_server server_instance;
+    PhysicEngine engine;
+    engine.addObject(new Sphere());
+  	engine.getObject(0)->setVelocity(1,0,1);
+    broadcast_server server_instance;
 
-  // Start a thread to run the processing loop
-  thread t(bind(&broadcast_server::process_messages,&server_instance));
-  thread t_2(bind(&broadcast_server::process_engine,&server_instance));
+    // Start a thread to run the processing loop
+    thread engineRun(&PhysicEngine::run,&engine);
+    thread t(bind(&broadcast_server::process_messages,&server_instance));
+    thread t_2(bind(&broadcast_server::process_engine,&server_instance, &engine));
 
-  // Run the asio loop with the main thread
-  server_instance.run(9002);
+    // Run the asio loop with the main thread
+    server_instance.run(9002);
 
-  t.join();
-  t_2.join();
+    t.join();
+    t_2.join();
 
   } catch (websocketpp::exception const & e) {
       std::cout << e.what() << std::endl;

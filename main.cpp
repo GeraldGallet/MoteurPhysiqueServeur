@@ -138,7 +138,7 @@ public:
       while (1)
       {
         for (auto it : m_connections) {
-            m_server.send(it, engine->getObjectsAsJSON(), websocketpp::frame::opcode::text);
+            m_server.send(it, "[{\"name\":\"mySphere\",\"position\":[10,10,10], \"radius\":1}]", websocketpp::frame::opcode::text);
             usleep(100000);
         }
       }
